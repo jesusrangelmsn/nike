@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estrategia de Diseño Publicitario Multicanal - Caso Nike</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        nike: {
+                            black: '#111111',
+                            orange: '#FA5400',
+                            volt: '#D8FF00',
+                            gray: '#707072',
+                            lightgray: '#F5F5F5',
+                            darkcard: '#1C1C1E'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
+                        impact: ['Impact', 'Futura', 'Arial Black', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom chart container strict constraints */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 360px;
+            }
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F1F1F1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #111111;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FA5400;
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-nike-black font-sans antialiased selection:bg-nike-orange selection:text-white">
+
+    <!-- Chosen Palette: Warm Neutral Canvas with Nike High-Contrast Accents (#111111, #FA5400, #D8FF00, #F5F5F5) -->
+
+    <!-- Application Structure Plan:
+        1. Sticky Header/Navigation: Quick access to core sections (Identidad, Matriz Embudo, Piezas Publicitarias, Analítica, Generador IA, Conclusiones).
+        2. Hero & Identity System: Visual overview of Nike's visual architecture, archetypes, dynamic color palette inspector, and typographic dualism.
+        3. Interactive Funnel Matrix: Tabbed & filtering interface enabling deep-dive into ToFu, MoFu, App, and BoFu strategic parameters with real-time UI state switching.
+        4. Promotional Piece Showcase & AI Prompt Studio: Interactive mockups simulating the 4 ad formats with built-in AI prompt viewers, parameters analysis, and single-click clipboard copying.
+        5. Visual Hierarchy & Cognitive Psychology Analytics: Interactive Radar and Stacked Bar charts powered by Chart.js to explain psychological load and visual color distribution across stages.
+        6. Dynamic AI Prompt Studio & Custom Generator: Interactive tool allowing users to synthesize tailored prompts following the report's methodology.
+        7. Strategic Directives Checklist: Executive conclusions for multi-channel campaign management.
+    -->
+
+    <!-- Visualization & Content Choices:
+        - Funnel Stage Dynamics -> Interactive Tabs & Metric Cards -> Real-time JavaScript filter -> Provides immediate clarity on strategy evolution.
+        - Cognitive Load vs Urgency -> Radar Chart (Chart.js) -> Direct multi-variable comparison per stage -> Canvas rendering (No SVG).
+        - Color Palette Allocation -> Stacked Bar Chart (Chart.js) -> Visualizes shift from monochrome ToFu to urgent BoFu -> Canvas rendering (No SVG).
+        - Synthetic Prompts -> Dynamic Copy Card + Technical Metadata Table -> Enhances usability and execution -> HTML/JS interactive component.
+        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-50 bg-stone-900 text-white shadow-xl border-b border-neutral-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <span class="text-2xl font-black tracking-tighter text-white font-impact uppercase">NIKE</span>
+                    <span class="text-xs uppercase bg-nike-orange text-white px-2 py-0.5 rounded font-bold tracking-widest">Funnel Studio</span>
+                </div>
+                <nav class="hidden md:flex space-x-6 text-xs font-bold uppercase tracking-wider">
+                    <a href="#identidad" class="hover:text-nike-orange transition">Identidad</a>
+                    <a href="#matriz" class="hover:text-nike-orange transition">Matriz Embudo</a>
+                    <a href="#piezas" class="hover:text-nike-orange transition">Piezas Promocionales</a>
+                    <a href="#analitica" class="hover:text-nike-orange transition">Analítica Psicológica</a>
+                    <a href="#generador" class="hover:text-nike-orange transition">Generador Prompts</a>
+                    <a href="#directivas" class="hover:text-nike-orange transition">Directivas</a>
+                </nav>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-stone-300 hover:text-white focus:outline-none text-xl">
+                        &#9776;
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-stone-950 px-4 pt-2 pb-4 space-y-2 text-xs font-bold uppercase tracking-wider border-t border-neutral-800">
+            <a href="#identidad" class="block py-2 text-stone-300 hover:text-nike-orange">Identidad</a>
+            <a href="#matriz" class="block py-2 text-stone-300 hover:text-nike-orange">Matriz Embudo</a>
+            <a href="#piezas" class="block py-2 text-stone-300 hover:text-nike-orange">Piezas Promocionales</a>
+            <a href="#analitica" class="block py-2 text-stone-300 hover:text-nike-orange">Analítica Psicológica</a>
+            <a href="#generador" class="block py-2 text-stone-300 hover:text-nike-orange">Generador Prompts</a>
+            <a href="#directivas" class="block py-2 text-stone-300 hover:text-nike-orange">Directivas</a>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+        <!-- HERO SECTION -->
+        <section class="bg-stone-900 text-white rounded-2xl p-8 md:p-12 shadow-2xl relative overflow-hidden border border-stone-800">
+            <div class="absolute -right-10 -bottom-10 opacity-10 text-[180px] font-black font-impact select-none pointer-events-none text-stone-100">
+                SWOOSH
+            </div>
+            <div class="relative z-10 max-w-3xl space-y-4">
+                <div class="inline-flex items-center space-x-2 bg-stone-800 px-3 py-1 rounded-full text-xs text-nike-volt font-mono uppercase tracking-wider">
+                    <span>&#9889; Caso de Estudio Multicanal</span>
+                    <span>•</span>
+                    <span>Estrategia de Marca</span>
+                </div>
+                <h1 class="text-3xl sm:text-5xl font-black tracking-tight font-impact uppercase leading-none">
+                    Adaptación de Marca en el Embudo de Conversión
+                </h1>
+                <p class="text-stone-300 text-sm sm:text-base leading-relaxed">
+                    Esta aplicación interactiva analiza la transición metodológica de la identidad visual de <strong class="text-white font-semibold">Nike</strong> a través de las 4 etapas estratégicas de adquisición: desde la conexión emocional en reconocimiento de marca hasta la urgencia transaccional de conversión.
+                </p>
+                <div class="pt-4 flex flex-wrap gap-4 text-xs font-bold uppercase">
+                    <a href="#matriz" class="bg-nike-orange hover:bg-orange-600 text-white px-6 py-3 rounded-lg transition shadow-lg inline-flex items-center space-x-2">
+                        <span>Explorar Matriz del Embudo</span>
+                        <span>&#8594;</span>
+                    </a>
+                    <a href="#piezas" class="bg-stone-800 hover:bg-stone-700 text-stone-200 px-6 py-3 rounded-lg transition border border-stone-700 inline-flex items-center space-x-2">
+                        <span>Ver 4 Piezas & Prompts</span>
+                        <span>&#128065;</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 1: IDENTIDAD VISUAL Y ARQUITECTURA -->
+        <section id="identidad" class="space-y-8 scroll-mt-20">
+            <div class="border-l-4 border-nike-black pl-4">
+                <h2 class="text-2xl sm:text-3xl font-black uppercase font-impact tracking-tight">
+                    1. Fundamentos de Identidad Visual y Arquitectura de Marca
+                </h2>
+                <p class="text-stone-600 text-sm mt-1">
+                    Introducción al sistema conceptual de Nike: el Arquetipo del Héroe, minimalismo de alto contraste y dualidad tipográfica orientada a la conversión.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Arquetipo -->
+                <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition">
+                    <div class="text-2xl mb-3">&#127942;</div>
+                    <h3 class="font-bold text-lg uppercase tracking-wide font-impact mb-2">Arquetipo del Héroe</h3>
+                    <p class="text-stone-600 text-xs leading-relaxed">
+                        Centrado en el empoderamiento, el rendimiento físico y la determinación personal. Eliminación sistemática de decoración superflua en favor del alto contraste y composiciones de máximo dinamismo.
+                    </p>
+                </div>
+
+                <!-- Tipografía -->
+                <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition">
+                    <div class="text-2xl mb-3">&#128459;</div>
+                    <h3 class="font-bold text-lg uppercase tracking-wide font-impact mb-2">Jerarquía Tipográfica</h3>
+                    <ul class="text-xs text-stone-600 space-y-2">
+                        <li><strong class="text-stone-900 uppercase font-impact">Nike Futura ND:</strong> Titulares masivos, caja alta, kerning ajustado. Proyecta urgencia y estabilidad sólida.</li>
+                        <li><strong class="text-stone-900 font-semibold">Helvetica Now:</strong> Texto de cuerpo, subtítulos, interfaces móviles y términos promocionales. Neutralidad y alta legibilidad.</li>
+                    </ul>
+                </div>
+
+                <!-- Isotipo Swoosh -->
+                <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition">
+                    <div class="text-2xl mb-3">&#10004;</div>
+                    <h3 class="font-bold text-lg uppercase tracking-wide font-impact mb-2">Isotipo Swoosh</h3>
+                    <p class="text-stone-600 text-xs leading-relaxed">
+                        Diseñado por Carolyn Davidson y simplificado en 1995. Opera como firma autónoma universal. En ToFu opera sin acompañamiento tipográfico; en BoFu respalda la credibilidad de la oferta comercial.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Paleta de Color Interactiva -->
+            <div class="bg-stone-900 text-white rounded-xl p-6 shadow-md space-y-4">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-stone-800 pb-3 gap-2">
+                    <div>
+                        <h3 class="text-lg font-bold uppercase tracking-wider font-impact">Sistema Cromático Corporativo</h3>
+                        <p class="text-xs text-stone-400">Haz clic en cada tono para inspeccionar sus reglas de uso y psicología en la interfaz.</p>
+                    </div>
+                    <span class="text-xs font-mono bg-stone-800 px-3 py-1 rounded text-stone-300">4 Tonos Oficiales</span>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4" id="color-swatches">
+                    <!-- Swatch 1 -->
+                    <button onclick="selectColor('black')" class="color-btn border-2 border-nike-orange p-4 rounded-lg bg-stone-950 text-left hover:scale-[1.02] transition">
+                        <div class="h-10 w-full bg-[#111111] rounded mb-2 border border-stone-700"></div>
+                        <div class="text-xs font-bold font-mono">Negro Nike</div>
+                        <div class="text-[10px] text-stone-400 font-mono">#111111</div>
+                    </button>
+                    <!-- Swatch 2 -->
+                    <button onclick="selectColor('white')" class="color-btn border-2 border-transparent p-4 rounded-lg bg-stone-800 text-left hover:scale-[1.02] transition">
+                        <div class="h-10 w-full bg-[#FFFFFF] rounded mb-2 border border-stone-300"></div>
+                        <div class="text-xs font-bold font-mono text-white">Blanco Puro</div>
+                        <div class="text-[10px] text-stone-400 font-mono">#FFFFFF</div>
+                    </button>
+                    <!-- Swatch 3 -->
+                    <button onclick="selectColor('orange')" class="color-btn border-2 border-transparent p-4 rounded-lg bg-stone-800 text-left hover:scale-[1.02] transition">
+                        <div class="h-10 w-full bg-[#FA5400] rounded mb-2"></div>
+                        <div class="text-xs font-bold font-mono text-white">Naranja Nike</div>
+                        <div class="text-[10px] text-stone-400 font-mono">#FA5400</div>
+                    </button>
+                    <!-- Swatch 4 -->
+                    <button onclick="selectColor('volt')" class="color-btn border-2 border-transparent p-4 rounded-lg bg-stone-800 text-left hover:scale-[1.02] transition">
+                        <div class="h-10 w-full bg-[#D8FF00] rounded mb-2"></div>
+                        <div class="text-xs font-bold font-mono text-white">Volt Ácido</div>
+                        <div class="text-[10px] text-stone-400 font-mono">#D8FF00</div>
+                    </button>
+                </div>
+
+                <!-- Inspect Details Area -->
+                <div id="color-inspector" class="bg-stone-950 p-4 rounded-lg text-xs space-y-2 border border-stone-800 font-mono">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: MATRIZ COMPARATIVA DEL EMBUDO -->
+        <section id="matriz" class="space-y-8 scroll-mt-20">
+            <div class="border-l-4 border-nike-orange pl-4">
+                <h2 class="text-2xl sm:text-3xl font-black uppercase font-impact tracking-tight">
+                    2. Matriz Comparativa del Embudo de Conversión
+                </h2>
+                <p class="text-stone-600 text-sm mt-1">
+                    Inspecciona la recalibración estratégica de las variables de diseño gráfico conforme la intención del consumidor evoluciona desde el descubrimiento hasta la transacción.
+                </p>
+            </div>
+
+            <!-- Stage Selector Buttons -->
+            <div class="flex flex-wrap gap-2 border-b border-stone-200 pb-4">
+                <button onclick="filterFunnel('all')" class="stage-tab bg-nike-black text-white px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition">
+                    Ver Todas las Etapas
+                </button>
+                <button onclick="filterFunnel('tofu')" class="stage-tab bg-stone-200 text-stone-800 hover:bg-stone-300 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition">
+                    1. Reconocimiento (ToFu)
+                </button>
+                <button onclick="filterFunnel('mofu-traffic')" class="stage-tab bg-stone-200 text-stone-800 hover:bg-stone-300 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition">
+                    2. Tráfico (MoFu)
+                </button>
+                <button onclick="filterFunnel('mofu-app')" class="stage-tab bg-stone-200 text-stone-800 hover:bg-stone-300 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition">
+                    3. App Club (MoFu/BoFu)
+                </button>
+                <button onclick="filterFunnel('bofu-conversion')" class="stage-tab bg-stone-200 text-stone-800 hover:bg-stone-300 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition">
+                    4. Ofertas (BoFu)
+                </button>
+            </div>
+
+            <!-- Interactive Funnel Cards Matrix -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="funnel-cards-container">
+                <!-- Populated dynamically via JavaScript -->
+            </div>
+
+            <!-- Full Comparison Table -->
+            <div class="bg-white rounded-xl shadow-sm border border-stone-200 overflow-hidden">
+                <div class="p-4 bg-stone-100 border-b border-stone-200 flex justify-between items-center">
+                    <h3 class="font-bold text-sm uppercase font-impact tracking-wider text-stone-800">
+                        Tabla de Especificaciones Técnicas por Etapa
+                    </h3>
+                    <span class="text-xs text-stone-500 font-mono">4 Fases Integradas</span>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs">
+                        <thead class="bg-stone-900 text-white uppercase font-mono text-[11px]">
+                            <tr>
+                                <th class="p-3">Fase del Embudo</th>
+                                <th class="p-3">Objetivo Estratégico</th>
+                                <th class="p-3">Elemento Visual Principal</th>
+                                <th class="p-3">Paleta Predominante</th>
+                                <th class="p-3">Jerarquía Tipográfica</th>
+                                <th class="p-3">Carga de Copy</th>
+                                <th class="p-3">Estructura CTA</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-stone-200 text-stone-700" id="funnel-table-body">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: PIEZAS PROMOCIONALES & PROMPT STUDIO -->
+        <section id="piezas" class="space-y-8 scroll-mt-20">
+            <div class="border-l-4 border-nike-volt pl-4">
+                <h2 class="text-2xl sm:text-3xl font-black uppercase font-impact tracking-tight">
+                    3. Diseños de Piezas Promocionales & Prompts Sintéticos
+                </h2>
+                <p class="text-stone-600 text-sm mt-1">
+                    Visualiza la renderización conceptual de los 4 anuncios publicitarios y examina las instrucciones avanzadas (*prompts*) diseñadas para su generación sintética con Inteligencia Artificial.
+                </p>
+            </div>
+
+            <!-- Selector de Piezas -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <button onclick="setActiveAd(1)" id="ad-tab-1" class="ad-tab p-3 rounded-lg border-2 border-nike-black bg-stone-900 text-white text-left transition">
+                    <div class="text-[10px] font-mono text-nike-orange uppercase font-bold">Diseño 1</div>
+                    <div class="text-xs font-bold font-impact uppercase truncate">Reconocimiento</div>
+                </button>
+                <button onclick="setActiveAd(2)" id="ad-tab-2" class="ad-tab p-3 rounded-lg border-2 border-transparent bg-white text-stone-800 hover:bg-stone-100 text-left transition">
+                    <div class="text-[10px] font-mono text-stone-500 uppercase font-bold">Diseño 2</div>
+                    <div class="text-xs font-bold font-impact uppercase truncate">Generación Tráfico</div>
+                </button>
+                <button onclick="setActiveAd(3)" id="ad-tab-3" class="ad-tab p-3 rounded-lg border-2 border-transparent bg-white text-stone-800 hover:bg-stone-100 text-left transition">
+                    <div class="text-[10px] font-mono text-stone-500 uppercase font-bold">Diseño 3</div>
+                    <div class="text-xs font-bold font-impact uppercase truncate">Instalación App</div>
+                </button>
+                <button onclick="setActiveAd(4)" id="ad-tab-4" class="ad-tab p-3 rounded-lg border-2 border-transparent bg-white text-stone-800 hover:bg-stone-100 text-left transition">
+                    <div class="text-[10px] font-mono text-stone-500 uppercase font-bold">Diseño 4</div>
+                    <div class="text-xs font-bold font-impact uppercase truncate">Oferta Directa</div>
+                </button>
+            </div>
+
+            <!-- Ad Showcase Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start bg-white p-6 sm:p-8 rounded-2xl border border-stone-200 shadow-md">
+                
+                <!-- Left Column: Simulated Ad Canvas Mockup (5 Cols) -->
+                <div class="lg:col-span-5 flex flex-col items-center justify-center">
+                    <div class="text-xs font-mono text-stone-400 mb-2 uppercase tracking-wider flex items-center gap-1">
+                        <span>&#128241;</span>
+                        <span>Vista Previa Simulada de Pieza (Relación 4:5)</span>
+                    </div>
+                    
+                    <!-- Ad Canvas Mockup Frame -->
+                    <div id="ad-canvas-mockup" class="w-full max-w-[340px] aspect-[4/5] rounded-xl overflow-hidden shadow-2xl relative border-4 border-stone-900 transition-all duration-300 flex flex-col justify-between p-6">
+                        <!-- Populated dynamically via JS -->
+                    </div>
+                </div>
+
+                <!-- Right Column: Specs & Synthetic Prompt Inspector (7 Cols) -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div id="ad-details-header" class="space-y-2 border-b border-stone-200 pb-4">
+                        <!-- Populated dynamically via JS -->
+                    </div>
+
+                    <!-- Technical Specs Grid -->
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs font-mono" id="ad-tech-specs">
+                        <!-- Populated dynamically via JS -->
+                    </div>
+
+                    <!-- Synthetic Prompt Box -->
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center">
+                            <label class="text-xs font-bold uppercase tracking-wider text-stone-700 font-mono flex items-center gap-1">
+                                <span>&#129302;</span>
+                                <span>Prompt de Generación Sintética (Midjourney v6 / AI)</span>
+                            </label>
+                            <button onclick="copyPromptText()" class="text-[11px] bg-stone-900 hover:bg-nike-orange text-white px-3 py-1 rounded transition font-mono flex items-center gap-1">
+                                <span id="copy-icon">&#128203;</span>
+                                <span id="copy-text">Copiar Prompt</span>
+                            </button>
+                        </div>
+                        <div id="prompt-text-box" class="bg-stone-950 text-stone-200 p-4 rounded-xl font-mono text-xs leading-relaxed border border-stone-800 select-all">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Design Rationale Note -->
+                    <div class="bg-stone-50 p-4 rounded-xl border-l-4 border-nike-black text-xs space-y-1">
+                        <div class="font-bold text-stone-900 uppercase font-impact tracking-wide">Análisis de Composición y Jerarquía:</div>
+                        <p id="ad-rationale-text" class="text-stone-600 leading-relaxed">
+                            <!-- Populated dynamically via JS -->
+                        </p>
+                    </div>
+                    <video class="w-full rounded-lg" controls>
+                        <source src="gemini_generated_video_60433f95.mp4" type="video/mp4">
+                        Tu navegador no soporta la reproducción de video.
+                    </video>
+                    <video class="w-full rounded-lg" controls>
+                        <source src="gemini_generated_video_9138bf48.mp4" type="video/mp4">
+                        Tu navegador no soporta la reproducción de video.
+                    </video>
+                    <video class="w-full rounded-lg" controls>
+                        <source src="gemini_generated_video_d716f1ab.mp4" type="video/mp4">
+                        Tu navegador no soporta la reproducción de video.
+                    </video>
+                    <video class="w-full rounded-lg" controls>
+                        <source src="gemini_generated_video_3cfa5df1.mp4" type="video/mp4">
+                        Tu navegador no soporta la reproducción de video.
+                    </video>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: ANALÍTICA Y PSICOLOGÍA DEL CONSUMIDOR -->
+        <section id="analitica" class="space-y-8 scroll-mt-20">
+            <div class="border-l-4 border-nike-black pl-4">
+                <h2 class="text-2xl sm:text-3xl font-black uppercase font-impact tracking-tight">
+                    4. Análisis de Transición Psicológica y Carga Cognitiva
+                </h2>
+                <p class="text-stone-600 text-sm mt-1">
+                    Visualización cuantitativa de la evolución en la densidad de texto, urgencia transaccional y asignación de color a lo largo del embudo de ventas.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Chart 1: Psychology Radar -->
+                <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm space-y-4">
+                    <div class="flex justify-between items-start border-b border-stone-100 pb-3">
+                        <div>
+                            <h3 class="font-bold text-base uppercase font-impact tracking-wide text-stone-900">
+                                Perfil Psicológico y Carga Cognitiva por Etapa
+                            </h3>
+                            <p class="text-xs text-stone-500">
+                                Comparación multicriterio: Carga Cognitiva, Urgencia, Intención Transaccional y Fricción.
+                            </p>
+                        </div>
+                        <span class="text-xs font-mono bg-stone-100 px-2 py-1 rounded">Radar Metric</span>
+                    </div>
+                    
+                    <!-- Responsive Chart Container -->
+                    <div class="chart-container">
+                        <canvas id="psychologyRadarChart"></canvas>
+                    </div>
+
+                    <p class="text-[11px] text-stone-500 leading-relaxed border-t border-stone-100 pt-3">
+                        <strong class="text-stone-800">Hallazgo Clave:</strong> La etapa de Reconocimiento (ToFu) minimiza la carga cognitiva para evitar barreras defensivas. En BoFu, la urgencia y la intención transaccional alcanzan su punto máximo.
+                    </p>
+                </div>
+
+                <!-- Chart 2: Color Allocation Stacked Bar -->
+                <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm space-y-4">
+                    <div class="flex justify-between items-start border-b border-stone-100 pb-3">
+                        <div>
+                            <h3 class="font-bold text-base uppercase font-impact tracking-wide text-stone-900">
+                                Distribución de Paleta Cromática (%)
+                            </h3>
+                            <p class="text-xs text-stone-500">
+                                Proporción del uso de color neutro (Negro/Blanco) vs acentos de alta visibilidad (Naranja/Volt).
+                            </p>
+                        </div>
+                        <span class="text-xs font-mono bg-stone-100 px-2 py-1 rounded">Stacked Bar</span>
+                    </div>
+
+                    <!-- Responsive Chart Container -->
+                    <div class="chart-container">
+                        <canvas id="colorDistributionChart"></canvas>
+                    </div>
+
+                    <p class="text-[11px] text-stone-500 leading-relaxed border-t border-stone-100 pt-3">
+                        <strong class="text-stone-800">Regla de Color:</strong> Los acentos cálidos (Naranja `#FA5400`) e hiper-visibles (`#D8FF00`) ganan protagonismo a medida que se exige una acción inmediata (clic/descarga/compra).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: GENERADOR DINÁMICO DE PROMPTS SINTÉTICOS -->
+        <section id="generador" class="space-y-8 scroll-mt-20">
+            <div class="border-l-4 border-nike-orange pl-4">
+                <h2 class="text-2xl sm:text-3xl font-black uppercase font-impact tracking-tight">
+                    5. Estudio Interactivo: Generador de Prompts IA para Nike
+                </h2>
+                <p class="text-stone-600 text-sm mt-1">
+                    Configura los parámetros estéticos y el objetivo de campaña para sintetizar un *prompt* ajustado a los estándares de dirección de arte corporativa de Nike.
+                </p>
+            </div>
+
+            <div class="bg-stone-900 text-white p-6 sm:p-8 rounded-2xl shadow-xl space-y-6 border border-stone-800">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Control 1: Etapa del Embudo -->
+                    <div class="space-y-2">
+                        <label class="text-xs font-mono font-bold uppercase text-stone-300">1. Objetivo de Campaña</label>
+                        <select id="gen-stage" onchange="generateCustomPrompt()" class="w-full bg-stone-950 border border-stone-700 rounded-lg p-3 text-xs text-white focus:border-nike-orange focus:outline-none">
+                            <option value="tofu">Reconocimiento (ToFu) - Monocromo Cinematográfico</option>
+                            <option value="mofu">Generación Tráfico (MoFu) - Acción Urbana Dinámica</option>
+                            <option value="app">Instalación App - UI Móvil Tech Mockup</option>
+                            <option value="bofu">Conversión Directa (BoFu) - Producto Studio Shot</option>
+                        </select>
+                    </div>
+
+                    <!-- Control 2: Sujeto / Atleta -->
+                    <div class="space-y-2">
+                        <label class="text-xs font-mono font-bold uppercase text-stone-300">2. Sujeto / Disciplina</label>
+                        <select id="gen-subject" onchange="generateCustomPrompt()" class="w-full bg-stone-950 border border-stone-700 rounded-lg p-3 text-xs text-white focus:border-nike-orange focus:outline-none">
+                            <option value="marathon">Corredor de Maratón Solitario</option>
+                            <option value="basketball">Jugador de Baloncesto en Corte Urbano</option>
+                            <option value="crossfit">Atleta de Alto Rendimiento en Gimnasio</option>
+                            <option value="lifestyle">Runner Urbano al Atardecer</option>
+                        </select>
+                    </div>
+
+                    <!-- Control 3: Iluminación / Lente -->
+                    <div class="space-y-2">
+                        <label class="text-xs font-mono font-bold uppercase text-stone-300">3. Estilo Visual & Iluminación</label>
+                        <select id="gen-style" onchange="generateCustomPrompt()" class="w-full bg-stone-950 border border-stone-700 rounded-lg p-3 text-xs text-white focus:border-nike-orange focus:outline-none">
+                            <option value="dramatic">Rim Lighting Dramático & Sombras Sombrías (#111111)</option>
+                            <option value="golden">Golden Hour Natural con Destellos Cálidos</option>
+                            <option value="studio">Estudio Técnico Spotlight Focalizado</option>
+                            <option value="cyber">Tech Studio con Indicadores Neón Volt (#D8FF00)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Custom Prompt Output Area -->
+                <div class="space-y-3 bg-stone-950 p-5 rounded-xl border border-stone-800">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-mono text-nike-volt uppercase font-bold flex items-center gap-1">
+                            <span>&#10024;</span>
+                            <span>Prompt Sintético Generado en Tiempo Real</span>
+                        </span>
+                        <button onclick="copyGeneratedPrompt()" class="text-xs bg-nike-orange hover:bg-orange-600 text-white px-3 py-1.5 rounded transition font-bold font-mono">
+                            Copiar Prompt Sintetizado
+                        </button>
+                    </div>
+                    <div id="generated-prompt-output" class="font-mono text-xs text-stone-200 leading-relaxed select-all">
+                        <!-- Populated dynamically via JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: CONCLUSIONES & DIRECTIVAS ESTRATÉGICAS -->
+        <section id="directivas" class="space-y-8 scroll-mt-20">
+            <div class="border-l-4 border-nike-black pl-4">
+                <h2 class="text-2xl sm:text-3xl font-black uppercase font-impact tracking-tight">
+                    6. Conclusiones Estratégicas y Directivas de Diseño
+                </h2>
+                <p class="text-stone-600 text-sm mt-1">
+                    Reglas metodológicas esenciales para la gestión de campañas multicanal de alto rendimiento.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Directive 1 -->
+                <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm space-y-3">
+                    <div class="inline-block bg-stone-900 text-white font-mono text-xs font-bold px-2.5 py-1 rounded">
+                        DIRECTIVA 01
+                    </div>
+                    <h3 class="font-bold text-lg uppercase font-impact tracking-wide text-stone-900">
+                        Cohesión de Marca Mediante Elementos Ancla
+                    </h3>
+                    <p class="text-stone-600 text-xs leading-relaxed">
+                        La transición entre etapas del embudo no debe fracturar la Identidad de Marca. Se debe mantener al menos un elemento ancla inalterable—en este caso, la tipografía <strong class="text-stone-900">Nike Futura ND</strong> y el isotipo <strong class="text-stone-900">Swoosh</strong>—para asegurar un reconocimiento instantáneo sin importar si la pieza es aspiracional o transaccional.
+                    </p>
+                </div>
+
+                <!-- Directive 2 -->
+                <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm space-y-3">
+                    <div class="inline-block bg-nike-orange text-white font-mono text-xs font-bold px-2.5 py-1 rounded">
+                        DIRECTIVA 02
+                    </div>
+                    <h3 class="font-bold text-lg uppercase font-impact tracking-wide text-stone-900">
+                        Segmentación Funcional del Color
+                    </h3>
+                    <p class="text-stone-600 text-xs leading-relaxed">
+                        Los colores secundarios no deben aplicarse con fines meramente decorativos. El negro (`#111111`) y el blanco (`#FFFFFF`) sostienen la estructura de marca, mientras que los tonos de alta visibilidad como el Naranja (`#FA5400`) y el Volt (`#D8FF00`) deben reservarse de forma exclusiva para señalizar interactividad, descargas o incentivos de conversión.
+                    </p>
+                </div>
+
+                <!-- Directive 3 -->
+                <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm space-y-3">
+                    <div class="inline-block bg-stone-900 text-white font-mono text-xs font-bold px-2.5 py-1 rounded">
+                        DIRECTIVA 03
+                    </div>
+                    <h3 class="font-bold text-lg uppercase font-impact tracking-wide text-stone-900">
+                        Ajuste Inverso de Densidad de Texto
+                    </h3>
+                    <p class="text-stone-600 text-xs leading-relaxed">
+                        La cantidad de texto utilizable en el diseño debe ser inversamente proporcional a la distancia del usuario respecto a la conversión. Las piezas de la parte superior del embudo deben priorizar la imagen pura y la narrativa mínima, mientras que las piezas de la parte inferior deben incorporar especificaciones claras de precio, oferta y CTA explícito.
+                    </p>
+                </div>
+
+                <!-- Directive 4 -->
+                <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm space-y-3">
+                    <div class="inline-block bg-nike-volt text-stone-900 font-mono text-xs font-bold px-2.5 py-1 rounded">
+                        DIRECTIVA 04
+                    </div>
+                    <h3 class="font-bold text-lg uppercase font-impact tracking-wide text-stone-900">
+                        Precisión Sintética en Prompting de IA
+                    </h3>
+                    <p class="text-stone-600 text-xs leading-relaxed">
+                        La generación de piezas publicitarias mediante herramientas sintéticas exige la especificación explícita de iluminación, parámetros de cámara (35mm vs 85mm), paletas de color con valores Hex exactos y directivas de espacio negativo para garantizar que las imágenes generadas se alineen estrictamente con las guías de marca.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-stone-950 text-stone-400 py-12 border-t border-stone-800 mt-20 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+            <div class="font-impact text-2xl text-white tracking-widest uppercase">NIKE BRAND FUNNEL STUDIO</div>
+            <p class="max-w-xl mx-auto text-stone-500">
+                Aplicación web interactiva desarrollada para el análisis sistemático de piezas promocionales y adaptación de marca en el embudo de conversión. Basado en guías oficiales de diseño e ingeniería de prompts sintéticos.
+            </p>
+            <div class="text-[10px] text-stone-600 font-mono">
+                &copy; 2026 Studio Report. Todos los derechos reservados. Basado en el documento "Estrategia de Diseño Publicitario Multicanal: Caso Nike".
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT CORE APPLICATION LOGIC -->
+    <script>
+        // Data Structures for Nike Color Palette
+        const colorData = {
+            black: {
+                name: 'Negro Nike',
+                hex: '#111111',
+                rgb: 'rgb(17, 17, 17)',
+                psychology: 'Proyecta autoridad, sofisticación, poder y seriedad. Funciona como el ancla estructural de la marca.',
+                rules: 'Fondo principal en ToFu y BoFu. Utilizado para generar alto contraste y sombras profundas en fotografía cinematográfica.'
+            },
+            white: {
+                name: 'Blanco Puro',
+                hex: '#FFFFFF',
+                rgb: 'rgb(255, 255, 255)',
+                psychology: 'Aporta claridad, espacio negativo y legibilidad impecable. Representa pureza visual.',
+                rules: 'Utilizado para titulares dominantes, el isotipo Swoosh en fondos oscuros y texto secundario.'
+            },
+            orange: {
+                name: 'Naranja Nike',
+                hex: '#FA5400',
+                rgb: 'rgb(250, 84, 0)',
+                psychology: 'Tono cálido heredado de la identidad de los 80. Transmite entusiasmo, dinamismo y acción inmediata.',
+                rules: 'Exclusivo para botones de llamada a la acción (CTA), insignias de descuento e incentivos de conversión.'
+            },
+            volt: {
+                name: 'Volt Ácido',
+                hex: '#D8FF00',
+                rgb: 'rgb(216, 255, 0)',
+                psychology: 'Amarillo-verde de alta visibilidad. Simboliza rendimiento técnico, energía eléctrica y velocidad.',
+                rules: 'Utilizado en interfaces digitales (Nike Run Club), métricas de rendimiento y acentos promocionales de máxima prioridad.'
+            }
+        };
+
+        // Data Structure for Funnel Stages Matrix
+        const funnelStages = [
+            {
+                id: 'tofu',
+                code: 'Fase 1',
+                name: 'Reconocimiento (ToFu)',
+                goal: 'Maximizar la conexión emocional, afinidad y recordación sin enfoque transaccional directo.',
+                visual: 'Fotografía editorial cinematográfica de atleta en máximo esfuerzo físico.',
+                palette: 'Monocromática estricta: Negro (#111111) y Blanco (#FFFFFF).',
+                typo: 'Nike Futura ND en escala masiva, caja alta.',
+                copyText: 'Minimalista: Reducido exclusivamente al eslogan manifesto "JUST DO IT".',
+                cta: 'Implícita: Sin botones; el Isotipo Swoosh actúa como firma única.'
+            },
+            {
+                id: 'mofu-traffic',
+                code: 'Fase 2',
+                name: 'Generación Tráfico (MoFu)',
+                goal: 'Incentivar el clic y dirigir tráfico cualificado al ecosistema digital o artículos.',
+                visual: 'Fotografía de estilo de vida deportivo en movimiento urbano dinámico.',
+                palette: 'Base de tonos oscuros con acento en Naranja Nike (#FA5400).',
+                typo: 'Titular en Nike Futura ND; cuerpo en Helvetica Now.',
+                copyText: 'Moderada: Encabezado de valor + subtítulo explicativo de beneficio.',
+                cta: 'Explícita: Botón destacado con verbo de exploración ("EXPLORAR LA COLECCIÓN").'
+            },
+            {
+                id: 'mofu-app',
+                code: 'Fase 3',
+                name: 'Instalación App (MoFu/BoFu)',
+                goal: 'Fomenta la descarga y adopción continuada de la app Nike Run Club.',
+                visual: 'Mockup 3D de smartphone en perspectiva sobre fondo de acción desenfocado.',
+                palette: 'Fondo neutro oscuro con acentos de interfaz en Volt (#D8FF00).',
+                typo: 'Helvetica Now para máxima legibilidad en datos UI y métricas.',
+                copyText: 'Informativa: Enfoque en beneficios funcionales (GPS, planes).',
+                cta: 'Directa: Badges de App Store / Google Play + Botón "DESCARGAR AHORA".'
+            },
+            {
+                id: 'bofu-conversion',
+                code: 'Fase 4',
+                name: 'Ofertas & Conversión (BoFu)',
+                goal: 'Activar la decisión de compra inmediata mediante incentivos y sentido de oportunidad.',
+                visual: 'Aislamiento de producto tipo studio shot con iluminación focalizada.',
+                palette: 'Negro (#111111) con insignias en Naranja (#FA5400) y Volt (#D8FF00).',
+                typo: 'Nike Futura ND para % de descuento; Helvetica Now para términos.',
+                copyText: 'Directa: Porcentaje claro, precio anterior tachado y envío gratis.',
+                cta: 'Urgente: Botón destacado "COMPRAR AHORA - 40% OFF".'
+            }
+        ];
+
+        // Data Structure for 4 Ad Promotional Pieces & Prompts
+        const adPieces = [
+            {
+                id: 1,
+                stageName: '1. Reconocimiento de Marca (ToFu)',
+                headline: 'JUST DO IT',
+                subheadline: '',
+                ctaText: '',
+                bgStyle: 'bg-gradient-to-b from-stone-900 via-stone-950 to-black',
+                badgeText: 'TOFU / CAMPAÑA BRAND',
+                badgeBg: 'bg-stone-800 text-stone-300',
+                visualContent: `
+                    <div class="h-full flex flex-col justify-between items-center text-center p-4">
+                        <div class="w-full flex justify-end">
+                            <span class="text-white font-black text-2xl tracking-tighter">✓</span>
+                        </div>
+                        <div class="my-auto space-y-3">
+                            <div class="text-stone-500 font-mono text-[10px] tracking-widest uppercase">[ Fotografía Monocroma Atleta en Niebla ]</div>
+                            <div class="text-3xl font-black font-impact tracking-tighter text-white uppercase leading-none">
+                                JUST DO IT
+                            </div>
+                        </div>
+                        <div class="text-[9px] font-mono text-stone-500 uppercase tracking-widest">
+                            Nike Brand Campaign • 2026
+                        </div>
+                    </div>
+                `,
+                prompt: `A dramatic, low-angle cinematic photograph of an elite athlete running through a foggy city street at dawn, intense physical exertion, perspiration on skin, rim lighting, deep black background (#111111), high contrast monochrome aesthetic, shot on 35mm lens, f/2.8, atmospheric mood, minimalist commercial layout, space for typography, ultra-detailed texture, professional sportswear campaign photography --ar 4:5 --style raw --v 6.0`,
+                lens: '35mm f/2.8',
+                lighting: 'Rim Lighting Matutino',
+                colors: '#111111, #FFFFFF, #707072',
+                aspectRatio: '4:5 (Digital Social)',
+                rationale: 'El diseño suprime precios, características y botones transaccionales para evitar activar las barreras defensivas contra la publicidad. La composición monocromática eleva la imagen a una dimensión aspiracional donde el Isotipo certifica una filosofía de vida.'
+            },
+            {
+                id: 2,
+                stageName: '2. Generación de Tráfico (MoFu)',
+                headline: 'SIENTE LA VELOCIDAD EN CADA ZAPATILLA',
+                subheadline: 'Descubre cómo la nueva estructura de amortiguación reduce el impacto en largas distancias.',
+                ctaText: 'CONOCE MÁS EN EL BLOG',
+                bgStyle: 'bg-gradient-to-b from-amber-950 via-stone-900 to-stone-950',
+                badgeText: 'MOFU / TRÁFICO WEB',
+                badgeBg: 'bg-nike-orange text-white',
+                visualContent: `
+                    <div class="h-full flex flex-col justify-between p-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-white font-black text-xl">✓</span>
+                            <span class="text-[9px] bg-amber-900/60 text-amber-200 px-2 py-0.5 rounded font-mono">Golden Hour</span>
+                        </div>
+                        <div class="space-y-2 my-auto">
+                            <div class="text-stone-400 font-mono text-[9px] uppercase">[ Action Shot Runner Puente ]</div>
+                            <div class="text-xl font-black font-impact tracking-tight text-white uppercase leading-tight">
+                                SIENTE LA VELOCIDAD EN CADA PADA
+                            </div>
+                            <p class="text-[10px] text-stone-300 leading-snug">
+                                Descubre la amortiguación de última generación.
+                            </p>
+                        </div>
+                        <button class="w-full bg-[#FA5400] text-white text-[10px] font-bold py-2 rounded uppercase font-mono tracking-wider shadow-lg">
+                            CONOCE MÁS EN EL BLOG &#8594;
+                        </button>
+                    </div>
+                `,
+                prompt: `Dynamic action sports photography of a runner crossing a modern bridge, dramatic side lighting, motion blur on background, crisp focus on running shoes, high contrast, deep black shadows (#111111) mixed with golden hour light, Nike Orange (#FA5400) accents, commercial layout designed for web traffic campaign, shot on 50mm lens, f/4.0, hyper-realistic --ar 4:5 --v 6.0`,
+                lens: '50mm f/4.0',
+                lighting: 'Side Lighting Golden Hour',
+                colors: '#111111, #FA5400, Atardecer',
+                aspectRatio: '4:5 (Social Feed)',
+                rationale: 'Introduce el producto en uso activo sin perder la narrativa. La inclusión del botón en Naranja Nike (#FA5400) rompe la monotonía y orienta la fijación foveal del espectador hacia la llamada a la acción explícita.'
+            },
+            {
+                id: 3,
+                stageName: '3. Instalación de App (MoFu/BoFu)',
+                headline: 'TU ENTRENADOR EN TU BOLSILLO',
+                subheadline: 'Planes de entrenamiento personalizados, seguimiento por GPS y desafíos de comunidad.',
+                ctaText: 'DESCARGAR AHORA',
+                bgStyle: 'bg-gradient-to-br from-stone-950 via-stone-900 to-stone-900',
+                badgeText: 'MOFU/BOFU / MOBILE APP',
+                badgeBg: 'bg-nike-volt text-stone-900 font-bold',
+                visualContent: `
+                    <div class="h-full flex flex-col justify-between p-4 relative">
+                        <div class="flex justify-between items-center">
+                            <span class="text-nike-volt font-black text-xl">✓</span>
+                            <span class="text-[9px] bg-stone-800 text-nike-volt px-2 py-0.5 rounded font-mono">NRC App</span>
+                        </div>
+                        <div class="space-y-2 my-auto">
+                            <div class="border border-stone-700 bg-stone-900/80 p-2 rounded-lg space-y-1">
+                                <div class="text-[9px] text-nike-volt font-mono font-bold">RITMO: 4'12" /km</div>
+                                <div class="text-[8px] text-stone-400 font-mono">GPS Map Tracking Active</div>
+                            </div>
+                            <div class="text-lg font-black font-impact tracking-tight text-white uppercase leading-tight">
+                                TU ENTRENADOR EN TU BOLSILLO
+                            </div>
+                            <p class="text-[9px] text-stone-300">
+                                Planes personalizables & métricas NRC.
+                            </p>
+                        </div>
+                        <div class="space-y-1.5">
+                            <button class="w-full bg-[#D8FF00] text-stone-950 text-[10px] font-black py-2 rounded uppercase font-mono tracking-wider">
+                                DESCARGAR AHORA &#10515;
+                            </button>
+                            <div class="text-[8px] text-center text-stone-400 font-mono">Disponible en App Store & Google Play</div>
+                        </div>
+                    </div>
+                `,
+                prompt: `A high-end 3D product mockup of a modern smartphone floating in perspective, showing a sleek sports tracking app UI with neon Volt (#D8FF00) data metrics and maps, dark blurred urban background, sophisticated tech studio lighting, primary black shadows (#111111), ultra-clean composition, professional digital marketing asset --ar 4:5 --v 6.0`,
+                lens: 'Render 3D Studio',
+                lighting: 'Tech Studio Lighting',
+                colors: '#111111, #D8FF00, #9E9EA0',
+                aspectRatio: '4:5 (App Campaign)',
+                rationale: 'Combina componentes físicos y digitales. Utiliza la tipografía Helvetica Now para comunicar las métricas del software con claridad cristalina e incorpora el color Volt (#D8FF00) como señalador de alta visibilidad tecnológica.'
+            },
+            {
+                id: 4,
+                stageName: '4. Ofertas y Conversión (BoFu)',
+                headline: 'MEMBER DAYS: 40% OFF',
+                subheadline: 'NIKE VAPORFLY NEXT%. Descuento exclusivo por tiempo limitado. Envío gratis.',
+                ctaText: 'COMPRAR AHORA',
+                bgStyle: 'bg-black',
+                badgeText: 'BOFU / CONVERSIÓN DIRECTA',
+                badgeBg: 'bg-red-600 text-white font-bold',
+                visualContent: `
+                    <div class="h-full flex flex-col justify-between p-4 border border-stone-800">
+                        <div class="flex justify-between items-start">
+                            <span class="bg-[#FA5400] text-white text-[9px] font-black font-mono px-2 py-1 rounded uppercase">
+                                40% OFF MEMBER DAYS
+                            </span>
+                            <span class="text-white font-black text-xl">✓</span>
+                        </div>
+                        <div class="my-auto space-y-1">
+                            <div class="text-stone-500 font-mono text-[9px] uppercase">[ Studio Shot Vaporfly Next% ]</div>
+                            <div class="text-xl font-black font-impact tracking-tight text-white uppercase">
+                                NIKE VAPORFLY NEXT%
+                            </div>
+                            <div class="flex items-center space-x-2 font-mono">
+                                <span class="text-nike-volt font-bold text-sm">$149.99</span>
+                                <span class="text-stone-500 line-through text-[10px]">$249.99</span>
+                            </div>
+                        </div>
+                        <button class="w-full bg-[#FA5400] text-white text-[10px] font-black py-2.5 rounded uppercase font-mono tracking-wider shadow-xl">
+                            COMPRAR AHORA • 40% OFF
+                        </button>
+                    </div>
+                `,
+                prompt: `Professional commercial studio product photography of a premium Nike running shoe on a black concrete pedestal, sharp spotlighting, deep black background (#111111), high contrast, vibrant Nike Orange (#FA5400) promotional tag placement area, clean e-commerce layout, 85mm lens, f/8, crystal clear detail, ultra-realistic --ar 4:5 --v 6.0`,
+                lens: '85mm f/8 (Macro Detail)',
+                lighting: 'Spotlight de Estudio Focalizado',
+                colors: '#111111, #FA5400, #D8FF00',
+                aspectRatio: '4:5 (E-commerce Ad)',
+                rationale: 'Lenguaje visual pragmático. Aísla el producto sobre pedestales limpios y combina el Naranja y el Volt para crear un choque cromático de urgencia que imita señalética de advertencia, acelerando la decisión de compra.'
+            }
+        ];
+
+        // State Management
+        let currentAdIndex = 0;
+
+        // Initialize Application
+        document.addEventListener('DOMContentLoaded', () => {
+            selectColor('black');
+            renderFunnelCards(funnelStages);
+            renderFunnelTable(funnelStages);
+            setActiveAd(1);
+            initCharts();
+            generateCustomPrompt();
+
+            // Mobile menu toggle
+            document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+                const menu = document.getElementById('mobile-menu');
+                menu.classList.toggle('hidden');
+            });
+        });
+
+        // Color Inspector Function
+        function selectColor(colorKey) {
+            const data = colorData[colorKey];
+            const inspector = document.getElementById('color-inspector');
+            
+            // Highlight active swatch border
+            document.querySelectorAll('.color-btn').forEach(btn => {
+                btn.classList.remove('border-nike-orange');
+                btn.classList.add('border-transparent');
+            });
+            event.currentTarget.classList.remove('border-transparent');
+            event.currentTarget.classList.add('border-nike-orange');
+
+            inspector.innerHTML = `
+                <div class="flex items-center space-x-2 text-nike-volt">
+                    <span>&#127912;</span>
+                    <strong class="uppercase">${data.name} (${data.hex})</strong>
+                </div>
+                <p><span class="text-stone-400">Psicología Cromática:</span> ${data.psychology}</p>
+                <p><span class="text-stone-400">Directiva de Uso:</span> ${data.rules}</p>
+            `;
+        }
+
+        // Funnel Matrix Renderer
+        function renderFunnelCards(stages) {
+            const container = document.getElementById('funnel-cards-container');
+            container.innerHTML = stages.map(s => `
+                <div class="bg-white p-5 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition space-y-3">
+                    <div class="flex justify-between items-center border-b border-stone-100 pb-2">
+                        <span class="text-[10px] font-mono font-bold bg-stone-900 text-white px-2 py-0.5 rounded uppercase">${s.code}</span>
+                        <span class="text-xs font-bold text-nike-orange font-mono">${s.name.split(' ')[0]}</span>
+                    </div>
+                    <h4 class="font-bold text-sm uppercase font-impact tracking-wide text-stone-900">${s.name}</h4>
+                    <div class="text-xs text-stone-600 space-y-2">
+                        <p><strong class="text-stone-800">Objetivo:</strong> ${s.goal}</p>
+                        <p><strong class="text-stone-800">Visual:</strong> ${s.visual}</p>
+                        <p><strong class="text-stone-800">CTA:</strong> ${s.cta}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderFunnelTable(stages) {
+            const tbody = document.getElementById('funnel-table-body');
+            tbody.innerHTML = stages.map(s => `
+                <tr class="hover:bg-stone-50 transition">
+                    <td class="p-3 font-bold text-stone-900">${s.name}</td>
+                    <td class="p-3 max-w-xs">${s.goal}</td>
+                    <td class="p-3 max-w-xs">${s.visual}</td>
+                    <td class="p-3 font-mono text-[11px]">${s.palette}</td>
+                    <td class="p-3">${s.typo}</td>
+                    <td class="p-3">${s.copyText}</td>
+                    <td class="p-3 font-bold text-nike-orange">${s.cta}</td>
+                </tr>
+            `).join('');
+        }
+
+        function filterFunnel(filter) {
+            // Update button tab active states
+            document.querySelectorAll('.stage-tab').forEach(tab => {
+                tab.classList.remove('bg-nike-black', 'text-white');
+                tab.classList.add('bg-stone-200', 'text-stone-800');
+            });
+            event.currentTarget.classList.remove('bg-stone-200', 'text-stone-800');
+            event.currentTarget.classList.add('bg-nike-black', 'text-white');
+
+            if (filter === 'all') {
+                renderFunnelCards(funnelStages);
+                renderFunnelTable(funnelStages);
+            } else {
+                const filtered = funnelStages.filter(s => s.id === filter);
+                renderFunnelCards(filtered);
+                renderFunnelTable(filtered);
+            }
+        }
+
+        // Active Ad Renderer
+        function setActiveAd(adId) {
+            currentAdIndex = adId - 1;
+            const ad = adPieces[currentAdIndex];
+
+            // Tab button styles
+            for (let i = 1; i <= 4; i++) {
+                const tab = document.getElementById(`ad-tab-${i}`);
+                if (i === adId) {
+                    tab.classList.remove('border-transparent', 'bg-white', 'text-stone-800');
+                    tab.classList.add('border-nike-black', 'bg-stone-900', 'text-white');
+                } else {
+                    tab.classList.remove('border-nike-black', 'bg-stone-900', 'text-white');
+                    tab.classList.add('border-transparent', 'bg-white', 'text-stone-800');
+                }
+            }
+
+            // Render simulated Canvas mockup
+            const canvas = document.getElementById('ad-canvas-mockup');
+            canvas.className = `w-full max-w-[340px] aspect-[4/5] rounded-xl overflow-hidden shadow-2xl relative border-4 border-stone-900 transition-all duration-300 flex flex-col justify-between p-6 ${ad.bgStyle}`;
+            canvas.innerHTML = ad.visualContent;
+
+            // Render details & specs
+            document.getElementById('ad-details-header').innerHTML = `
+                <div class="flex items-center space-x-2">
+                    <span class="text-xs font-mono ${ad.badgeBg} px-2.5 py-0.5 rounded tracking-wider">${ad.badgeText}</span>
+                </div>
+                <h3 class="text-xl font-black uppercase font-impact tracking-tight text-stone-900">${ad.stageName}</h3>
+            `;
+
+            document.getElementById('ad-tech-specs').innerHTML = `
+                <div class="bg-stone-100 p-2.5 rounded border border-stone-200">
+                    <span class="text-stone-400 block text-[10px]">Lente / Cámara</span>
+                    <strong class="text-stone-900">${ad.lens}</strong>
+                </div>
+                <div class="bg-stone-100 p-2.5 rounded border border-stone-200">
+                    <span class="text-stone-400 block text-[10px]">Iluminación</span>
+                    <strong class="text-stone-900">${ad.lighting}</strong>
+                </div>
+                <div class="bg-stone-100 p-2.5 rounded border border-stone-200">
+                    <span class="text-stone-400 block text-[10px]">Relación Aspecto</span>
+                    <strong class="text-stone-900">${ad.aspectRatio}</strong>
+                </div>
+            `;
+
+            document.getElementById('prompt-text-box').innerText = ad.prompt;
+            document.getElementById('ad-rationale-text').innerText = ad.rationale;
+        }
+
+        function copyPromptText() {
+            const promptText = document.getElementById('prompt-text-box').innerText;
+            navigator.clipboard.writeText(promptText).then(() => {
+                const copyBtnText = document.getElementById('copy-text');
+                copyBtnText.innerText = '¡Copiado!';
+                setTimeout(() => {
+                    copyBtnText.innerText = 'Copiar Prompt';
+                }, 2000);
+            });
+        }
+
+        // Custom AI Prompt Generator Logic
+        function generateCustomPrompt() {
+            const stage = document.getElementById('gen-stage').value;
+            const subject = document.getElementById('gen-subject').value;
+            const style = document.getElementById('gen-style').value;
+
+            let promptStr = "";
+
+            // Base subject mapping
+            const subjectMap = {
+                marathon: "An elite marathon runner pushing through endurance limits, sweat glistening on skin",
+                basketball: "A dynamic street basketball player suspended mid-air for a slam dunk on an urban court",
+                crossfit: "A high-performance athlete executing heavy kettlebell training in a dark minimalist gym",
+                lifestyle: "An athletic urban runner navigating a suspension bridge during twilight"
+            };
+
+            // Stage prompt frameworks
+            if (stage === 'tofu') {
+                promptStr = `A dramatic low-angle shot of ${subjectMap[subject]}, ${style}, deep black background (#111111), minimalist high-contrast monochrome commercial photography, shot on 35mm lens, f/2.8, atmospheric mood, space reserved for typography, professional Nike brand campaign --ar 4:5 --style raw --v 6.0`;
+            } else if (stage === 'mofu') {
+                promptStr = `Dynamic action sports photography featuring ${subjectMap[subject]}, ${style}, motion blur on background, high contrast shadows (#111111) with Nike Orange (#FA5400) accents on footwear, shot on 50mm lens, f/4.0, hyper-realistic, designed for web traffic campaign layout --ar 4:5 --v 6.0`;
+            } else if (stage === 'app') {
+                promptStr = `High-end 3D product mockup of a smartphone displaying Nike Run Club app UI, floating in front of ${subjectMap[subject]}, ${style}, neon Volt (#D8FF00) metric indicators, ultra-clean digital tech marketing asset --ar 4:5 --v 6.0`;
+            } else {
+                promptStr = `Studio shot product photography of Nike running footwear associated with ${subjectMap[subject]}, pedestal setup, ${style}, high contrast, prominent Nike Orange (#FA5400) and Volt (#D8FF00) promotional tag placement area, 85mm lens, f/8, crystal clear detail --ar 4:5 --v 6.0`;
+            }
+
+            document.getElementById('generated-prompt-output').innerText = promptStr;
+        }
+
+        function copyGeneratedPrompt() {
+            const text = document.getElementById('generated-prompt-output').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Prompt personalizado copiado al portapapeles');
+            });
+        }
+
+        // Chart.js Visualizations
+        function initCharts() {
+            // Chart 1: Psychology Radar Chart
+            const ctxRadar = document.getElementById('psychologyRadarChart').getContext('2d');
+            new Chart(ctxRadar, {
+                type: 'radar',
+                data: {
+                    labels: ['Carga Cognitiva', 'Intención Transaccional', 'Nivel de Urgencia', 'Densidad de Copy', 'Enfoque de Producto'],
+                    datasets: [
+                        {
+                            label: '1. Reconocimiento (ToFu)',
+                            data: [15, 10, 5, 10, 30],
+                            backgroundColor: 'rgba(17, 17, 17, 0.2)',
+                            borderColor: '#111111',
+                            borderWidth: 2,
+                            pointBackgroundColor: '#111111'
+                        },
+                        {
+                            label: '2. Tráfico (MoFu)',
+                            data: [45, 50, 40, 40, 60],
+                            backgroundColor: 'rgba(250, 84, 0, 0.2)',
+                            borderColor: '#FA5400',
+                            borderWidth: 2,
+                            pointBackgroundColor: '#FA5400'
+                        },
+                        {
+                            label: '4. Ofertas (BoFu)',
+                            data: [85, 95, 90, 80, 95],
+                            backgroundColor: 'rgba(216, 255, 0, 0.3)',
+                            borderColor: '#88A000',
+                            borderWidth: 2,
+                            pointBackgroundColor: '#88A000'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: '#E5E7EB' },
+                            grid: { color: '#E5E7EB' },
+                            pointLabels: {
+                                font: { size: 10, family: 'Helvetica' },
+                                color: '#374151'
+                            },
+                            ticks: { display: false, max: 100 }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { boxWidth: 12, font: { size: 11 } }
+                        }
+                    }
+                }
+            });
+
+            // Chart 2: Color Allocation Stacked Bar Chart
+            const ctxBar = document.getElementById('colorDistributionChart').getContext('2d');
+            new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: ['ToFu (Reconocimiento)', 'MoFu (Tráfico)', 'MoFu/BoFu (App)', 'BoFu (Oferta)'],
+                    datasets: [
+                        {
+                            label: 'Negro & Blanco Neutro (#111111 / #FFFFFF)',
+                            data: [95, 75, 60, 50],
+                            backgroundColor: '#111111'
+                        },
+                        {
+                            label: 'Naranja Nike (#FA5400)',
+                            data: [5, 25, 10, 35],
+                            backgroundColor: '#FA5400'
+                        },
+                        {
+                            label: 'Volt Ácido (#D8FF00)',
+                            data: [0, 0, 30, 15],
+                            backgroundColor: '#D8FF00'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            stacked: true,
+                            grid: { display: false },
+                            ticks: { font: { size: 10 } }
+                        },
+                        y: {
+                            stacked: true,
+                            max: 100,
+                            ticks: {
+                                callback: function(value) { return value + "%" }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { boxWidth: 12, font: { size: 11 } }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
